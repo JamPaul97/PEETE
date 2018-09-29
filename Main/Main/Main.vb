@@ -33,12 +33,9 @@ Public Class Main
         Trainer_Pokemon.SelectedIndex = 0
     End Sub
     Private Sub loadItems()
-        Trainer_Items.Items.Clear()
         Trainer_HeldItem.Items.Clear()
-        Trainer_Items.Items.Add("---NONE---")
         Trainer_HeldItem.Items.Add("---NONE---")
         For Each item In Project.Items
-            Trainer_Items.Items.Add(item.internalName)
             Trainer_HeldItem.Items.Add(item.internalName)
         Next
     End Sub
@@ -100,22 +97,22 @@ Public Class Main
         If PKM.move1 IsNot Nothing And PKM.move1 IsNot "" Then
             Trainer_Move1.SelectedItem = PKM.move1
         Else
-            Trainer_Move1.SelectedIndex = -1
+            Trainer_Move1.SelectedIndex = 0
         End If
         If PKM.move2 IsNot Nothing And PKM.move2 IsNot "" Then
             Trainer_Move2.SelectedItem = PKM.move2
         Else
-            Trainer_Move2.SelectedIndex = -1
+            Trainer_Move2.SelectedIndex = 0
         End If
         If PKM.move3 IsNot Nothing And PKM.move3 IsNot "" Then
             Trainer_Move3.SelectedItem = PKM.move3
         Else
-            Trainer_Move3.SelectedIndex = -1
+            Trainer_Move3.SelectedIndex = 0
         End If
         If PKM.move4 IsNot Nothing And PKM.move4 IsNot "" Then
             Trainer_Move4.SelectedItem = PKM.move4
         Else
-            Trainer_Move4.SelectedIndex = -1
+            Trainer_Move4.SelectedIndex = 0
         End If
         If PKM.ability IsNot Nothing And PKM.ability IsNot "" Then
             Trainer_Ability.SelectedItem = PKM.ability
@@ -171,8 +168,76 @@ Public Class Main
             Trainer_Ball.Value = -1
         End If
     End Sub
-    Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Function saveSignlePokemon()
+        Dim pkm As New PEE.TrainersClass.Trainer.pokemon
+        pkm.species = Trainer_Speice.SelectedItem
+        pkm.level = Trainer_Level.Value.ToString
+        If Trainer_HeldItem.SelectedIndex = 0 Then
+            pkm.heldItem = ""
+        Else
+            pkm.heldItem = Trainer_HeldItem.SelectedItem
+        End If
+        If Trainer_Move1.SelectedIndex = 0 Then
+            pkm.move1 = ""
+        Else
+            pkm.move1 = Trainer_Move1.SelectedItem
+        End If
+        If Trainer_Move2.SelectedIndex = 0 Then
+            pkm.move2 = ""
+        Else
+            pkm.move2 = Trainer_Move2.SelectedItem
+        End If
+        If Trainer_Move3.SelectedIndex = 0 Then
+            pkm.move3 = ""
+        Else
+            pkm.move3 = Trainer_Move3.SelectedItem
+        End If
+        If Trainer_Move4.SelectedIndex = 0 Then
+            pkm.move4 = ""
+        Else
+            pkm.move4 = Trainer_Move4.SelectedItem
+        End If
+        If Trainer_Ability.SelectedItem = "---NONE---" Then
+            pkm.ability = ""
+        Else
+            pkm.ability = Trainer_Ability.SelectedIndex.ToString
+        End If
+        If Trainer_male.Checked = True Then
+            pkm.gender = "M"
+        ElseIf Trainer_Female.Checked = True Then
+            pkm.gender = "F"
+        Else
+            pkm.gender = ""
+        End If
+        pkm.form = Trainer_Form.Text
+        If Trainer_Shiny.Checked = True Then
+            pkm.shininess = "shiny"
+        Else
+            pkm.shininess = ""
+        End If
+        If Trainer_Ivs.Value = 0 Then
+            pkm.ivs = ""
+        Else
 
+            pkm.ivs = Trainer_Ivs.Value.ToString
+        End If
+        pkm.nature = Trainer_Nature.Text
+        pkm.happiness = Trainer_Happiness.Value.ToString
+        pkm.nickname = Trainer_Nickname.Text
+        If Trainer_Shadow.Checked = True Then
+            pkm.shadowPokemon = "true"
+        Else
+            pkm.shadowPokemon = ""
+        End If
+        If Trainer_Ball.Value = -1 Then
+            pkm.ballType = ""
+        Else
+            pkm.ballType = Trainer_Ball.Value.ToString
+        End If
+        Return (pkm)
+    End Function
+    Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.KeyPreview = True
     End Sub
 
     Private Sub LoadToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadToolStripMenuItem.Click
@@ -327,7 +392,10 @@ Public Class Main
         loadTrainerTypes()
         loadMoves()
         loadSpeices()
+        loadItems()
         loadAllTrainers()
+        GroupBox1.Enabled = True
+        Trainer_BtnNewTrainer.Enabled = True
         BtnProjectSave.Enabled = True
     End Sub
 
@@ -357,6 +425,129 @@ Public Class Main
                 Case 5
                     loadSignlePokemon(Project.Trainers(Trainers_List.SelectedIndex).pokemon6)
             End Select
+        End If
+    End Sub
+
+    Private Sub AddNewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AddNewToolStripMenuItem.Click
+        Dim trainer As New TrainersClass.Trainer
+        trainer.trainerType = Project.TrainerTypes(0).internalName
+        trainer.name = "NEWTRAINER"
+        trainer.pokemonNumber = "1"
+        Dim PKM As New TrainersClass.Trainer.pokemon
+        PKM.species = Project.Pokemon(0).InternalName
+        PKM.level = "10"
+        trainer.pokemon1 = PKM
+        Project.Trainers.Add(trainer)
+        loadAllTrainers()
+        Trainers_List.SelectedIndex = -1
+        Trainers_List.SelectedIndex = Trainers_List.Items.Count - 1
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        If Trainers_List.SelectedIndex >= 0 Then
+            Select Case Trainer_Pokemon.Items.Count
+                Case 1
+                    Project.Trainers(Trainers_List.SelectedIndex).pokemon2.species = Project.Pokemon(0).InternalName
+                    Project.Trainers(Trainers_List.SelectedIndex).pokemon2.level = "10"
+                    Project.Trainers(Trainers_List.SelectedIndex).pokemonNumber = Project.Trainers(Trainers_List.SelectedIndex).pokemonNumber + 1
+                Case 2
+                    Project.Trainers(Trainers_List.SelectedIndex).pokemon3.species = Project.Pokemon(0).InternalName
+                    Project.Trainers(Trainers_List.SelectedIndex).pokemon3.level = "10"
+                    Project.Trainers(Trainers_List.SelectedIndex).pokemonNumber = Project.Trainers(Trainers_List.SelectedIndex).pokemonNumber + 1
+                Case 3
+                    Project.Trainers(Trainers_List.SelectedIndex).pokemon4.species = Project.Pokemon(0).InternalName
+                    Project.Trainers(Trainers_List.SelectedIndex).pokemon4.level = "10"
+                    Project.Trainers(Trainers_List.SelectedIndex).pokemonNumber = Project.Trainers(Trainers_List.SelectedIndex).pokemonNumber + 1
+                Case 4
+                    Project.Trainers(Trainers_List.SelectedIndex).pokemon5.species = Project.Pokemon(0).InternalName
+                    Project.Trainers(Trainers_List.SelectedIndex).pokemon5.level = "10"
+                    Project.Trainers(Trainers_List.SelectedIndex).pokemonNumber = Project.Trainers(Trainers_List.SelectedIndex).pokemonNumber + 1
+                Case 5
+                    Project.Trainers(Trainers_List.SelectedIndex).pokemon6.species = Project.Pokemon(0).InternalName
+                    Project.Trainers(Trainers_List.SelectedIndex).pokemon6.level = "10"
+                    Project.Trainers(Trainers_List.SelectedIndex).pokemonNumber = Project.Trainers(Trainers_List.SelectedIndex).pokemonNumber + 1
+                Case 6
+                    MsgBox("You cant add more than 6 Pokemons.")
+            End Select
+            loadSingleTrainer()
+        End If
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        If Trainers_List.SelectedIndex >= 0 Then
+            If Trainer_Pokemon.SelectedIndex >= 0 Then
+                Dim pkm As New TrainersClass.Trainer.pokemon
+                Select Case Trainer_Pokemon.SelectedIndex
+                    Case 0
+                        Project.Trainers(Trainers_List.SelectedIndex).pokemon1 = pkm
+                    Case 1
+                        Project.Trainers(Trainers_List.SelectedIndex).pokemon2 = pkm
+                    Case 2
+                        Project.Trainers(Trainers_List.SelectedIndex).pokemon3 = pkm
+                    Case 3
+                        Project.Trainers(Trainers_List.SelectedIndex).pokemon4 = pkm
+                    Case 4
+                        Project.Trainers(Trainers_List.SelectedIndex).pokemon5 = pkm
+                    Case 5
+                        Project.Trainers(Trainers_List.SelectedIndex).pokemon6 = pkm
+                End Select
+                Dim a = Trainers_List.SelectedIndex
+                Trainers_List.SelectedIndex = -1
+                Trainers_List.SelectedIndex = a
+                Trainer_Pokemon.SelectedIndex = 0
+            End If
+        End If
+    End Sub
+
+    Private Sub BtnProjectSave_Click(sender As Object, e As EventArgs) Handles BtnProjectSave.Click
+        Try
+            Project.Save(ProjectClass.Save.Trainers)
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub Trainer_ButtonSave_Click(sender As Object, e As EventArgs) Handles Trainer_ButtonSave.Click
+        If Trainers_List.SelectedIndex >= 0 Then
+            Select Case Trainer_Pokemon.SelectedIndex
+                Case 0
+                    Project.Trainers(Trainers_List.SelectedIndex).pokemon1 = saveSignlePokemon()
+                Case 1
+                    Project.Trainers(Trainers_List.SelectedIndex).pokemon2 = saveSignlePokemon()
+                Case 2
+                    Project.Trainers(Trainers_List.SelectedIndex).pokemon3 = saveSignlePokemon()
+                Case 3
+                    Project.Trainers(Trainers_List.SelectedIndex).pokemon4 = saveSignlePokemon()
+                Case 4
+                    Project.Trainers(Trainers_List.SelectedIndex).pokemon5 = saveSignlePokemon()
+                Case 5
+                    Project.Trainers(Trainers_List.SelectedIndex).pokemon6 = saveSignlePokemon()
+            End Select
+        End If
+    End Sub
+
+    Private Sub Main_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        If (e.Control AndAlso (e.KeyCode = Keys.O)) Then
+            LoadToolStripMenuItem.PerformClick()
+        End If
+        If (e.Control AndAlso (e.KeyCode = Keys.S)) And BtnProjectSave.Enabled = True Then
+            BtnProjectSave.PerformClick()
+        End If
+    End Sub
+
+    Private Sub Trainer_TrainerType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Trainer_TrainerType.SelectedIndexChanged
+        If Trainers_List.SelectedIndex >= 0 Then
+            If Trainer_TrainerType.SelectedIndex >= 0 Then
+                Project.Trainers(Trainers_List.SelectedIndex).trainerType = Trainer_TrainerType.SelectedItem
+            End If
+        End If
+    End Sub
+
+    Private Sub Trainer_Name_TextChanged(sender As Object, e As EventArgs) Handles Trainer_Name.TextChanged
+        If Trainers_List.SelectedIndex >= 0 Then
+            If Trainer_Name.Text IsNot "" Then
+                Project.Trainers(Trainers_List.SelectedIndex).name = Trainer_Name.Text
+            End If
         End If
     End Sub
 End Class

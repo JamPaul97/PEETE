@@ -29,7 +29,8 @@ Partial Class Main
         Me.BtnProjectSave = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.TrainerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Trainer_BtnNewTrainer = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AddNewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Trainers_List = New System.Windows.Forms.ToolStripComboBox()
         Me.WorkerLoadProject = New System.ComponentModel.BackgroundWorker()
@@ -38,6 +39,7 @@ Partial Class Main
         Me.ProgressBarCurrent = New System.Windows.Forms.ToolStripProgressBar()
         Me.StatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Button2 = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Trainer_Pokemon = New System.Windows.Forms.ComboBox()
         Me.Label16 = New System.Windows.Forms.Label()
@@ -103,7 +105,7 @@ Partial Class Main
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ProjectToolStripMenuItem, Me.TrainerToolStripMenuItem, Me.AboutToolStripMenuItem, Me.Trainers_List})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ProjectToolStripMenuItem, Me.Trainer_BtnNewTrainer, Me.AboutToolStripMenuItem, Me.Trainers_List})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -121,32 +123,42 @@ Partial Class Main
         'LoadToolStripMenuItem
         '
         Me.LoadToolStripMenuItem.Name = "LoadToolStripMenuItem"
-        Me.LoadToolStripMenuItem.Size = New System.Drawing.Size(100, 22)
+        Me.LoadToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.LoadToolStripMenuItem.Text = "Load"
+        Me.LoadToolStripMenuItem.ToolTipText = "Load a project (Ctrl + O)"
         '
         'BtnProjectSave
         '
         Me.BtnProjectSave.Enabled = False
         Me.BtnProjectSave.Name = "BtnProjectSave"
-        Me.BtnProjectSave.Size = New System.Drawing.Size(100, 22)
+        Me.BtnProjectSave.Size = New System.Drawing.Size(180, 22)
         Me.BtnProjectSave.Text = "Save"
+        Me.BtnProjectSave.ToolTipText = "Save a project (Ctrl + S)"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(97, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(177, 6)
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(100, 22)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.ExitToolStripMenuItem.Text = "Exit"
         '
-        'TrainerToolStripMenuItem
+        'Trainer_BtnNewTrainer
         '
-        Me.TrainerToolStripMenuItem.Name = "TrainerToolStripMenuItem"
-        Me.TrainerToolStripMenuItem.Size = New System.Drawing.Size(55, 23)
-        Me.TrainerToolStripMenuItem.Text = "Trainer"
+        Me.Trainer_BtnNewTrainer.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AddNewToolStripMenuItem})
+        Me.Trainer_BtnNewTrainer.Enabled = False
+        Me.Trainer_BtnNewTrainer.Name = "Trainer_BtnNewTrainer"
+        Me.Trainer_BtnNewTrainer.Size = New System.Drawing.Size(55, 23)
+        Me.Trainer_BtnNewTrainer.Text = "Trainer"
+        '
+        'AddNewToolStripMenuItem
+        '
+        Me.AddNewToolStripMenuItem.Name = "AddNewToolStripMenuItem"
+        Me.AddNewToolStripMenuItem.Size = New System.Drawing.Size(121, 22)
+        Me.AddNewToolStripMenuItem.Text = "Add new"
         '
         'AboutToolStripMenuItem
         '
@@ -194,6 +206,7 @@ Partial Class Main
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.Button2)
         Me.GroupBox1.Controls.Add(Me.Button1)
         Me.GroupBox1.Controls.Add(Me.Trainer_Pokemon)
         Me.GroupBox1.Controls.Add(Me.Label16)
@@ -203,6 +216,7 @@ Partial Class Main
         Me.GroupBox1.Controls.Add(Me.Label4)
         Me.GroupBox1.Controls.Add(Me.Trainer_TrainerType)
         Me.GroupBox1.Controls.Add(Me.Label6)
+        Me.GroupBox1.Enabled = False
         Me.GroupBox1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(36, Byte), Integer), CType(CType(39, Byte), Integer))
         Me.GroupBox1.Location = New System.Drawing.Point(12, 30)
         Me.GroupBox1.Name = "GroupBox1"
@@ -210,6 +224,16 @@ Partial Class Main
         Me.GroupBox1.TabIndex = 3
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Main Trainer"
+        '
+        'Button2
+        '
+        Me.Button2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(36, Byte), Integer), CType(CType(39, Byte), Integer))
+        Me.Button2.Location = New System.Drawing.Point(695, 30)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(97, 23)
+        Me.Button2.TabIndex = 77
+        Me.Button2.Text = "Add Pokemon"
+        Me.Button2.UseVisualStyleBackColor = True
         '
         'Button1
         '
@@ -763,8 +787,8 @@ Partial Class Main
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(921, 325)
-        Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.StatusStrip1)
+        Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
@@ -806,7 +830,7 @@ Partial Class Main
     Friend WithEvents ProgressBarTotal As ToolStripProgressBar
     Friend WithEvents ProgressBarCurrent As ToolStripProgressBar
     Friend WithEvents StatusLabel As ToolStripStatusLabel
-    Friend WithEvents TrainerToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents Trainer_BtnNewTrainer As ToolStripMenuItem
     Friend WithEvents AboutToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents Trainers_List As ToolStripComboBox
     Friend WithEvents GroupBox1 As GroupBox
@@ -858,4 +882,6 @@ Partial Class Main
     Friend WithEvents Label4 As Label
     Friend WithEvents Trainer_TrainerType As ComboBox
     Friend WithEvents Label6 As Label
+    Friend WithEvents AddNewToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents Button2 As Button
 End Class
