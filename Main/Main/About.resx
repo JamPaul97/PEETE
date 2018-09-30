@@ -117,11 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="EssentialsLogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\EssentialsLogo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="PokemonLogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PokemonLogo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Label2.Text" xml:space="preserve">
+    <value>Easy Trainer Editor Version : 1.2. by JamPaul97 2018
+Project build : 1.1
+Pokemon Logo, Pokémon, Pokémon character names, Nintendo 3DS, Nintendo DS, Wii, Wii U, and Wiiware are trademarks of Nintendo.
+Pee.dll Version : 1.1.1 - By JamPaul97
+Pee.dll is personal coded and may not be used by other applications/users without the consent of its creator.
+PEETE code may not be used/replacted/copies by any other user(s)/application(s).
+All icons used in program was found on : http://icons8.com
+
+</value>
   </data>
 </root>

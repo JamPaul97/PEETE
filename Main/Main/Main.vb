@@ -1,7 +1,7 @@
 ﻿Imports PEE
 Imports System.IO
 Public Class Main
-    Dim Project As New ProjectClass.project
+    Public Shared Project As New ProjectClass.project
     Private Sub loadSingleTrainer()
         Dim id As Integer = Trainers_List.SelectedIndex
         Trainer_TrainerType.SelectedItem = Project.Trainers(id).trainerType
@@ -549,5 +549,43 @@ Public Class Main
                 Project.Trainers(Trainers_List.SelectedIndex).name = Trainer_Name.Text
             End If
         End If
+    End Sub
+
+    Private Sub RemoveItemToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RemoveItemToolStripMenuItem.Click
+        If Trainers_List.SelectedIndex >= 0 Then
+            If Trainer_Items.SelectedIndex >= 0 Then
+                If MessageBox.Show(Me, "Remove this item?", "Removing item.", vbYesNo) = DialogResult.Yes Then
+                    Project.Trainers(Trainers_List.SelectedIndex).items.RemoveAt(Trainer_Items.SelectedIndex)
+                    Trainer_Items.Items.Clear()
+                    For Each item In Project.Trainers(Trainers_List.SelectedIndex).items
+                        Trainer_Items.Items.Add(item)
+                    Next
+                End If
+            End If
+        End If
+    End Sub
+
+    Private Sub AddItemToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AddItemToolStripMenuItem.Click
+        If Trainers_List.SelectedIndex >= 0 Then
+            Dim DLG As New AddItem
+            If DLG.ShowDialog = DialogResult.OK Then
+                Project.Trainers(Trainers_List.SelectedIndex).items.Add(DLG.ComboBox1.SelectedItem)
+                Trainer_Items.Items.Clear()
+                For Each item In Project.Trainers(Trainers_List.SelectedIndex).items
+                    Trainer_Items.Items.Add(item)
+                Next
+            End If
+        End If
+
+    End Sub
+
+    Private Sub TrainerTypesEditorToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TrainerTypesEditorToolStripMenuItem.Click
+        Dim dlg As New TrainerTypeEditor
+        dlg.ShowDialog()
+    End Sub
+
+    Private Sub AboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem.Click
+        Dim DLG As New About
+        DLG.ShowDialog()
     End Sub
 End Class

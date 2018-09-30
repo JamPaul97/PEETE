@@ -22,6 +22,7 @@ Partial Class Main
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Main))
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.ProjectToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -81,13 +82,18 @@ Partial Class Main
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Trainer_Speice = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.Trainer_PokemonImage = New System.Windows.Forms.PictureBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.Trainer_Items = New System.Windows.Forms.ListBox()
+        Me.ContextPlayerItem = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.AddItemToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RemoveItemToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Trainer_Name = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Trainer_TrainerType = New System.Windows.Forms.ComboBox()
         Me.Label6 = New System.Windows.Forms.Label()
+        Me.TrainerTypesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TrainerTypesEditorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Trainer_PokemonImage = New System.Windows.Forms.PictureBox()
         Me.MenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -99,8 +105,9 @@ Partial Class Main
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         CType(Me.Trainer_Level, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.Trainer_PokemonImage, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
+        Me.ContextPlayerItem.SuspendLayout()
+        CType(Me.Trainer_PokemonImage, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -123,7 +130,7 @@ Partial Class Main
         'LoadToolStripMenuItem
         '
         Me.LoadToolStripMenuItem.Name = "LoadToolStripMenuItem"
-        Me.LoadToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.LoadToolStripMenuItem.Size = New System.Drawing.Size(100, 22)
         Me.LoadToolStripMenuItem.Text = "Load"
         Me.LoadToolStripMenuItem.ToolTipText = "Load a project (Ctrl + O)"
         '
@@ -131,24 +138,24 @@ Partial Class Main
         '
         Me.BtnProjectSave.Enabled = False
         Me.BtnProjectSave.Name = "BtnProjectSave"
-        Me.BtnProjectSave.Size = New System.Drawing.Size(180, 22)
+        Me.BtnProjectSave.Size = New System.Drawing.Size(100, 22)
         Me.BtnProjectSave.Text = "Save"
         Me.BtnProjectSave.ToolTipText = "Save a project (Ctrl + S)"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(97, 6)
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(100, 22)
         Me.ExitToolStripMenuItem.Text = "Exit"
         '
         'Trainer_BtnNewTrainer
         '
-        Me.Trainer_BtnNewTrainer.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AddNewToolStripMenuItem})
+        Me.Trainer_BtnNewTrainer.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AddNewToolStripMenuItem, Me.TrainerTypesToolStripMenuItem})
         Me.Trainer_BtnNewTrainer.Enabled = False
         Me.Trainer_BtnNewTrainer.Name = "Trainer_BtnNewTrainer"
         Me.Trainer_BtnNewTrainer.Size = New System.Drawing.Size(55, 23)
@@ -157,7 +164,7 @@ Partial Class Main
         'AddNewToolStripMenuItem
         '
         Me.AddNewToolStripMenuItem.Name = "AddNewToolStripMenuItem"
-        Me.AddNewToolStripMenuItem.Size = New System.Drawing.Size(121, 22)
+        Me.AddNewToolStripMenuItem.Size = New System.Drawing.Size(143, 22)
         Me.AddNewToolStripMenuItem.Text = "Add new"
         '
         'AboutToolStripMenuItem
@@ -232,7 +239,7 @@ Partial Class Main
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(97, 23)
         Me.Button2.TabIndex = 77
-        Me.Button2.Text = "Add Pokemon"
+        Me.Button2.Text = "Remove Pokemon"
         Me.Button2.UseVisualStyleBackColor = True
         '
         'Button1
@@ -714,16 +721,6 @@ Partial Class Main
         Me.Label1.TabIndex = 37
         Me.Label1.Text = "Specie"
         '
-        'Trainer_PokemonImage
-        '
-        Me.Trainer_PokemonImage.BackColor = System.Drawing.SystemColors.Control
-        Me.Trainer_PokemonImage.Location = New System.Drawing.Point(6, 16)
-        Me.Trainer_PokemonImage.Name = "Trainer_PokemonImage"
-        Me.Trainer_PokemonImage.Size = New System.Drawing.Size(64, 64)
-        Me.Trainer_PokemonImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.Trainer_PokemonImage.TabIndex = 0
-        Me.Trainer_PokemonImage.TabStop = False
-        '
         'GroupBox2
         '
         Me.GroupBox2.Controls.Add(Me.Trainer_Items)
@@ -737,12 +734,31 @@ Partial Class Main
         '
         'Trainer_Items
         '
+        Me.Trainer_Items.ContextMenuStrip = Me.ContextPlayerItem
         Me.Trainer_Items.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Trainer_Items.FormattingEnabled = True
         Me.Trainer_Items.Location = New System.Drawing.Point(3, 16)
         Me.Trainer_Items.Name = "Trainer_Items"
         Me.Trainer_Items.Size = New System.Drawing.Size(151, 145)
         Me.Trainer_Items.TabIndex = 0
+        '
+        'ContextPlayerItem
+        '
+        Me.ContextPlayerItem.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AddItemToolStripMenuItem, Me.RemoveItemToolStripMenuItem})
+        Me.ContextPlayerItem.Name = "ContextPlayerItem"
+        Me.ContextPlayerItem.Size = New System.Drawing.Size(145, 48)
+        '
+        'AddItemToolStripMenuItem
+        '
+        Me.AddItemToolStripMenuItem.Name = "AddItemToolStripMenuItem"
+        Me.AddItemToolStripMenuItem.Size = New System.Drawing.Size(144, 22)
+        Me.AddItemToolStripMenuItem.Text = "Add item"
+        '
+        'RemoveItemToolStripMenuItem
+        '
+        Me.RemoveItemToolStripMenuItem.Name = "RemoveItemToolStripMenuItem"
+        Me.RemoveItemToolStripMenuItem.Size = New System.Drawing.Size(144, 22)
+        Me.RemoveItemToolStripMenuItem.Text = "Remove Item"
         '
         'Trainer_Name
         '
@@ -755,7 +771,7 @@ Partial Class Main
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.ForeColor = System.Drawing.SystemColors.Control
+        Me.Label4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(36, Byte), Integer), CType(CType(39, Byte), Integer))
         Me.Label4.Location = New System.Drawing.Point(6, 60)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(35, 13)
@@ -782,6 +798,29 @@ Partial Class Main
         Me.Label6.TabIndex = 35
         Me.Label6.Text = "Trainer Type"
         '
+        'TrainerTypesToolStripMenuItem
+        '
+        Me.TrainerTypesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TrainerTypesEditorToolStripMenuItem})
+        Me.TrainerTypesToolStripMenuItem.Name = "TrainerTypesToolStripMenuItem"
+        Me.TrainerTypesToolStripMenuItem.Size = New System.Drawing.Size(143, 22)
+        Me.TrainerTypesToolStripMenuItem.Text = "Trainer Types"
+        '
+        'TrainerTypesEditorToolStripMenuItem
+        '
+        Me.TrainerTypesEditorToolStripMenuItem.Name = "TrainerTypesEditorToolStripMenuItem"
+        Me.TrainerTypesEditorToolStripMenuItem.Size = New System.Drawing.Size(177, 22)
+        Me.TrainerTypesEditorToolStripMenuItem.Text = "Trainer Types Editor"
+        '
+        'Trainer_PokemonImage
+        '
+        Me.Trainer_PokemonImage.BackColor = System.Drawing.SystemColors.Control
+        Me.Trainer_PokemonImage.Location = New System.Drawing.Point(6, 16)
+        Me.Trainer_PokemonImage.Name = "Trainer_PokemonImage"
+        Me.Trainer_PokemonImage.Size = New System.Drawing.Size(64, 64)
+        Me.Trainer_PokemonImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Trainer_PokemonImage.TabIndex = 0
+        Me.Trainer_PokemonImage.TabStop = False
+        '
         'Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -792,7 +831,11 @@ Partial Class Main
         Me.Controls.Add(Me.MenuStrip1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
+        Me.MaximizeBox = False
+        Me.MaximumSize = New System.Drawing.Size(937, 364)
+        Me.MinimumSize = New System.Drawing.Size(937, 364)
         Me.Name = "Main"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Pokemon Essential Easy Trainer Editor"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
@@ -812,8 +855,9 @@ Partial Class Main
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
         CType(Me.Trainer_Level, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.Trainer_PokemonImage, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
+        Me.ContextPlayerItem.ResumeLayout(False)
+        CType(Me.Trainer_PokemonImage, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -884,4 +928,9 @@ Partial Class Main
     Friend WithEvents Label6 As Label
     Friend WithEvents AddNewToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents Button2 As Button
+    Friend WithEvents ContextPlayerItem As ContextMenuStrip
+    Friend WithEvents AddItemToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents RemoveItemToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents TrainerTypesToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents TrainerTypesEditorToolStripMenuItem As ToolStripMenuItem
 End Class
